@@ -5,7 +5,7 @@ const API = axios.create({
     withCredentials: true,
 });
 
-// ==================== Auth APIs ====================
+// ==================== Auth APIs  ====================
 
 // Register user
 export const registerUser = async (data) => {
