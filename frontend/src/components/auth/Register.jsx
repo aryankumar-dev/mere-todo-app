@@ -20,11 +20,11 @@ const Register = () => {
       await registerUser(formData);
       setTimeout(() => {
         setLoading(false);
-        navigate('/login');
+    navigate('/dashboard');
       }, 1000);
     } catch (err) {
       setLoading(false);
-      setError(err?.response?.data?.message || 'Something went wrong.');
+      setError(err?.response?.data?.message || 'Something went wrong. Please Check Email or Pawword Formate');
     }
   };
 

@@ -24,7 +24,7 @@ const Login = () => {
       }, 1000);
     } catch (err) {
       setLoading(false);
-      setError(err?.response?.data?.message || 'Login failed.');
+      setError(err?.response?.data?.message || 'Login failed. Please Enter Correct Email Password');
     }
   };
 
