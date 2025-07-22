@@ -6,14 +6,14 @@ import cookieParser from 'cookie-parser';
 
 import authRoutes from './routes/authRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
-//  d
+
 dotenv.config();
 const app = express();
 
 app.use(express.json());
 
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: 'https://mere-todo-app-1.onrender.com',
     credentials: true,
 }));
 
