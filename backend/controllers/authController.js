@@ -64,14 +64,14 @@ export const login = async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: 'None',
-    path: '/', // ✅ Add this
+   
     maxAge: 15 * 60 * 1000,
 });
 res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     secure: true,
     sameSite: 'None',
-    path: '/', // ✅ Add this
+  
     maxAge: 7 * 24 * 60 * 60 * 1000,
 });
 
