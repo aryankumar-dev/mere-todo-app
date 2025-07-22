@@ -10,33 +10,28 @@ import taskRoutes from './routes/taskRoutes.js';
 dotenv.config();
 const app = express();
 
+app.use(express.json());
 
-
-
+ const allowedOrigins = process.env.CLIENT_URL;
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: allowedOrigins, // Replace with your React app's URL
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed request headers
 }));
 
 
-
-app.use(express.json());
-// ✅ Use cookie parser
 app.use(cookieParser());
 
-// ✅ Routes
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/task', taskRoutes);
 
-// ✅ MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.error(err));
 
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.error(err));
 
-// ✅ Root test route
 app.get('/', (req, res) => res.send('API is working'));
 
 const PORT = process.env.PORT || 5000;
