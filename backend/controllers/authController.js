@@ -60,20 +60,20 @@ export const login = async (req, res) => {
         user.refreshToken = refreshToken;
         await user.save();
 
-       res.cookie('accessToken', accessToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-   
-    maxAge: 15 * 60 * 1000,
-});
-res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'None',
-  
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-});
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            
+
+            maxAge: 15 * 60 * 1000,
+        });
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            
+
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
 
 
         res.status(200).json({
