@@ -33,10 +33,13 @@ export const logoutUser = async () => {
 };
 
 // Check Authentication
-export const checkAuth = async () => {
-    const res = await API.get('/auth/check', { withCredentials: true });
-    return res.data;
-};
+const res = await API.get('/auth/check', {
+    withCredentials: true,
+    headers: {
+        'Cache-Control': 'no-store'
+    }
+});
+
 
 // ==================== Task APIs ====================
 
