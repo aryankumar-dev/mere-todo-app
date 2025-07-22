@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// ✅ Base Axios instance with credentials enabled
 const API = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true,
@@ -9,25 +10,31 @@ const API = axios.create({
 
 // Register user
 export const registerUser = async (data) => {
-    const res = await API.post('/auth/register', data);
+    const res = await API.post('/auth/register', data, { withCredentials: true });
     return res.data;
 };
 
 // Login user
 export const loginUser = async (data) => {
-    const res = await API.post('/auth/login', data);
+    const res = await API.post('/auth/login', data, { withCredentials: true });
     return res.data;
 };
 
 // Refresh token
 export const refreshToken = async () => {
-    const res = await API.get('/auth/refresh');
+    const res = await API.get('/auth/refresh', { withCredentials: true });
     return res.data;
 };
 
 // Logout user
 export const logoutUser = async () => {
-    const res = await API.post('/auth/logout');
+    const res = await API.post('/auth/logout', {}, { withCredentials: true });
+    return res.data;
+};
+
+// Check Authentication
+export const checkAuth = async () => {
+    const res = await API.get('/auth/check', { withCredentials: true });
     return res.data;
 };
 
@@ -35,30 +42,24 @@ export const logoutUser = async () => {
 
 // Get tasks
 export const getTasks = async () => {
-    const res = await API.get('/task/');
+    const res = await API.get('/task/', { withCredentials: true });
     return res.data;
 };
 
 // Create task
 export const createTask = async (data) => {
-    const res = await API.post('/task/', data);
+    const res = await API.post('/task/', data, { withCredentials: true });
     return res.data;
 };
 
 // Update task
 export const updateTask = async (id, data) => {
-    const res = await API.put(`/task/${id}`, data);
+    const res = await API.put(`/task/${id}`, data, { withCredentials: true });
     return res.data;
 };
 
 // Delete task
 export const deleteTask = async (id) => {
-    const res = await API.delete(`/task/${id}`);
-    return res.data;
-};
-
-// Check Authentication
-export const checkAuth = async () => {
-    const res = await API.get('/auth/check');
+    const res = await API.delete(`/task/${id}`, { withCredentials: true });
     return res.data;
 };
