@@ -44,9 +44,10 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 // Generate Access Token
+// Generate Access Token
 userSchema.methods.generateAccessToken = function () {
     return jwt.sign(
-        { id: this._id },
+        { id: this._id, username: this.username }, 
         process.env.JWT_SECRET,
         { expiresIn: '15m' }
     );
@@ -55,7 +56,7 @@ userSchema.methods.generateAccessToken = function () {
 // Generate Refresh Token
 userSchema.methods.generateRefreshToken = function () {
     return jwt.sign(
-        { id: this._id },
+         { id: this._id, username: this.username },
         process.env.REFRESH_SECRET,
         { expiresIn: '7d' }
     );

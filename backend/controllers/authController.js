@@ -134,8 +134,9 @@ export const checkAuth = (req, res) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return res.json({ success: true, username: decoded.username });
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+return res.json({ success: true, username: decoded.username });
+
     } catch (error) {
         return res.json({ success: false });
     }
