@@ -12,13 +12,14 @@ const app = express();
 
 app.use(express.json());
 
- const allowedOrigins = process.env.CLIENT_URL;
+const allowedOrigins = process.env.CLIENT_URL;
 app.use(cors({
-    origin: allowedOrigins, // Replace with your React app's URL
+    origin: allowedOrigins,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed request headers
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
 
 
 app.use(cookieParser());
@@ -34,6 +35,6 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.get('/', (req, res) => res.send('API is working'));
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
