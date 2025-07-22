@@ -25,7 +25,7 @@ app.options('*', cors());
 
 app.use(cookieParser());
 
-// Routes
+// Routes 
 app.use('/api/auth', authRoutes);
 app.use('/api/task', taskRoutes);
 
