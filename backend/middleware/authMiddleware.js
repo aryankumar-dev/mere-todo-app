@@ -3,8 +3,8 @@ import User from '../models/User.js';
 
 export const protect = async (req, res, next) => {
     const token = req.cookies.accessToken;
+    console.log("Access Token:", token);
 
-    console.log(token);
     if (!token) {
         return res.status(401).json({ success: false, message: 'No access token' });
     }
@@ -18,6 +18,6 @@ export const protect = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
-        res.status(401).json({ success: false, message: 'Invalid or expired token' });
+        return res.status(401).json({ success: false, message: 'Invalid or expired token' });
     }
 };

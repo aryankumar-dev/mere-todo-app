@@ -108,25 +108,25 @@ export const refreshToken = async (req, res) => {
     }
 };
 
+// Logout Controller (requires protect)
 export const logout = async (req, res) => {
-    const token = req.cookies.refreshToken;
     try {
-        if (token) {
-            const user = await User.findOne({ refreshToken: token });
-            if (user) {
-                user.refreshToken = "";
-                await user.save();
-            }
+        const user = await User.findById(req.user._id);
+        if (user) {
+            user.refreshToken = "";
+            await user.save();
         }
-        res.clearCookie('accessToken');
-        res.clearCookie('refreshToken');
-        res.status(200).json({ success: true, message: 'Logged out successfully' });
+
+        res.clearCookie('accessToken', { httpOnly: true, sameSite: 'None', secure: true });
+        res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'None', secure: true });
+
+        return res.status(200).json({ success: true, message: 'Logged out successfully' });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        return res.status(500).json({ success: false, message: error.message });
     }
 };
 
-// Route: GET /api/auth/check
+// Auth Check (public)
 export const checkAuth = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) {
@@ -134,11 +134,9 @@ export const checkAuth = (req, res) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        jwt.verify(token, process.env.JWT_SECRET);
         return res.json({ success: true });
     } catch (error) {
         return res.json({ success: false });
     }
 };
-
-

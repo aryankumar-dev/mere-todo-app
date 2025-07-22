@@ -1,7 +1,7 @@
 import express from 'express';
 import { register, login, refreshToken, logout,checkAuth } from '../controllers/authController.js';
 import { body } from 'express-validator';
-
+import {protect} from '../middleware/authMiddleware.js'
 
 const router = express.Router();
 
@@ -23,9 +23,10 @@ router.post('/login',
 );
 
 router.get('/refresh', refreshToken);
-router.post('/logout', logout);
+router.post('/logout', protect, logout);
 
-router.get('/check', checkAuth);
+
+router.get('/check', protect, checkAuth);
 
 
 export default router;
