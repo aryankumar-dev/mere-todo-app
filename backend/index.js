@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: 'https://mere-todo-app.onrender.com/api',
+    origin: 'https://mere-todo-app-1.onrender.com',
     credentials: true,
 }));
 
