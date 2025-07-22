@@ -60,8 +60,20 @@ export const login = async (req, res) => {
         user.refreshToken = refreshToken;
         await user.save();
 
-        res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000 });
-        res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            maxAge: 15 * 60 * 1000,
+        });
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
 
         res.status(200).json({
             success: true,
@@ -115,15 +127,15 @@ export const logout = async (req, res) => {
 
 // Route: GET /api/auth/check
 export const checkAuth = (req, res) => {
-  const token = req.cookies.accessToken;
-  if (!token) {
-    return res.json({ success: false });
-  }
+    const token = req.cookies.accessToken;
+    if (!token) {
+        return res.json({ success: false });
+    }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return res.json({ success: true });
-  } catch (error) {
-    return res.json({ success: false });
-  }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return res.json({ success: true });
+    } catch (error) {
+        return res.json({ success: false });
+    }
 };
