@@ -12,19 +12,11 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000'];
-
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true
+    origin: 'https://mere-todo-app.onrender.com/api',
+    credentials: true,
 }));
+
 
 app.use(cookieParser());
 
