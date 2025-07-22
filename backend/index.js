@@ -12,29 +12,30 @@ const app = express();
 
 app.use(express.json());
 
-
+// ✅ Fixed CORS Configuration
 app.use(cors({
     origin: process.env.CLIENT_URL,
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed request headers
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// Handle preflight OPTIONS requests globally
+// ✅ Important: Handle preflight requests globally
+app.options('*', cors());
 
-
-
+// ✅ Use cookie parser
 app.use(cookieParser());
 
-// Routes 
+// ✅ Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/task', taskRoutes);
 
-
+// ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.error(err));
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.error(err));
 
+// ✅ Root test route
 app.get('/', (req, res) => res.send('API is working'));
 
 const PORT = process.env.PORT || 5000;
