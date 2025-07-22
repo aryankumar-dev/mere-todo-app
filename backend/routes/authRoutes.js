@@ -26,7 +26,7 @@ router.get('/refresh', refreshToken);
 router.post('/logout', protect, logout);
 
 
-router.get('/check', protect, checkAuth);
+router.post('/check', protect, checkAuth);
 
 
 export default router;

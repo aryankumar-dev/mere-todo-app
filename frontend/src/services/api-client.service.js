@@ -34,7 +34,7 @@ export const logoutUser = async () => {
 
 // Check Authentication
 export const checkAuth = async () => {
-    const res = await API.get('/auth/check', { withCredentials: true });
+    const res = await API.post('/auth/check', {}, { withCredentials: true });
     return res.data;
 };
 
