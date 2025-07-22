@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { logoutUser } from '../services/api-client.service';
 import useAuthCheck from '../hooks/useAuthCheck';
+
 const AppNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,8 +29,8 @@ const AppNavbar = () => {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">MERN ToDo</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {isLoggedIn && username && (
               <Navbar.Text className="me-3 text-light">
@@ -53,3 +54,5 @@ const AppNavbar = () => {
     </Navbar>
   );
 };
+
+export default AppNavbar;
