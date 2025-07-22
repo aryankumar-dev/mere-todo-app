@@ -3,21 +3,25 @@ import { useEffect, useState } from 'react';
 import { checkAuth } from '../services/api-client.service.js';
 
 const useAuthCheck = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [auth, setAuth] = useState({ isLoggedIn: false, username: '' });
 
   useEffect(() => {
     const verifyAuth = async () => {
       try {
         const res = await checkAuth();
-        setIsLoggedIn(res.success);
+        if (res.success) {
+          setAuth({ isLoggedIn: true, username: res.username });
+        } else {
+          setAuth({ isLoggedIn: false, username: '' });
+        }
       } catch (err) {
-        setIsLoggedIn(false);
+        setAuth({ isLoggedIn: false, username: '' });
       }
     };
     verifyAuth();
   }, []);
 
-  return isLoggedIn;
+  return auth;
 };
 
 export default useAuthCheck;

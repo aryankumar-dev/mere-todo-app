@@ -126,7 +126,7 @@ export const logout = async (req, res) => {
     }
 };
 
-// Auth Check (public)
+// Route: GET /api/auth/check
 export const checkAuth = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) {
@@ -134,8 +134,8 @@ export const checkAuth = (req, res) => {
     }
 
     try {
-        jwt.verify(token, process.env.JWT_SECRET);
-        return res.json({ success: true });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return res.json({ success: true, username: decoded.username });
     } catch (error) {
         return res.json({ success: false });
     }
