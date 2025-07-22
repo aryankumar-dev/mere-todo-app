@@ -10,9 +10,8 @@ import taskRoutes from './routes/taskRoutes.js';
 dotenv.config();
 const app = express();
 
-app.use(express.json());
 
-// ✅ Fixed CORS Configuration
+
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
@@ -20,13 +19,9 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// ✅ Correct fix:
-app.options('*', cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-}));
 
 
+app.use(express.json());
 // ✅ Use cookie parser
 app.use(cookieParser());
 
