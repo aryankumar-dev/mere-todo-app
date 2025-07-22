@@ -20,8 +20,12 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// ✅ Important: Handle preflight requests globally
-app.options('*', cors());
+// ✅ Correct fix:
+app.options('*', cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+}));
+
 
 // ✅ Use cookie parser
 app.use(cookieParser());
