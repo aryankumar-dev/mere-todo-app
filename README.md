@@ -1,1 +1,2 @@
 # mern-todo-app
+cors
