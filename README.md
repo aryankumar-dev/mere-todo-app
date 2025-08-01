@@ -1,2 +1,2 @@
 # mern-todo-app
-cors issue
+cors issue solved
